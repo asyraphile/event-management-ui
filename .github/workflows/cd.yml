@@ -1,0 +1,43 @@
+name: CD Deploy to Firebase Hosting
+
+# Trigger deployment when a push to the 'main' branch happens
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+      # Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Set up Node.js environment for Angular
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # Install project dependencies
+      - name: Clean Cache and Install dependencies
+        run: |
+          npm cache clean --force
+          npm ci
+
+      # Build the Angular project
+      - name: Build Angular app
+        run: ng build
+
+      # Deploy to Firebase Hosting
+      - name: Deploy to Firebase Hosting
+        run: |
+          npm install -g firebase-tools
+          firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
