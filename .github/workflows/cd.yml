@@ -1,4 +1,4 @@
-name: CD Deploy to Firebase Hosting
+name: Deployment to Firebase Hosting
 
 # Trigger deployment when a push to the 'main' branch happens
 on:
