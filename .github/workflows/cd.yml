@@ -12,13 +12,19 @@ permissions:
   pull-requests: write
 
 jobs:
+  build:
+    steps:
+      - name: Retrieving build from main
+        uses: .github/workflows/ci.yml@main
   deploy:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
-      # Checkout repository
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: Production file
+          path: ./artifacts/build
 
       # Install Firebase CLI
       - name: Install Firebase Tools
