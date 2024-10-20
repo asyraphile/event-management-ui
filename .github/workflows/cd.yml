@@ -16,9 +16,11 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
-      # Checkout repository
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: poduction file
+          path: ./artifacts/build
 
       # Install Firebase CLI
       - name: Install Firebase Tools
