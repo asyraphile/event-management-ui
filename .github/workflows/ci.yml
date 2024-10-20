@@ -40,7 +40,7 @@ jobs:
 
       # Deploy to Firebase Hosting
       - name: Deploy to Firebase Hosting
-  run: |
-    echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > $HOME/serviceAccountKey.json
-    npm install -g firebase-tools
-    firebase deploy --project event-management-ui --token ${{ secrets.FIREBASE_TOKEN }}
+        run: |
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > $HOME/serviceAccountKey.json
+          npm install -g firebase-tools
+          firebase deploy --project event-management-ui --token ${{ secrets.FIREBASE_TOKEN }}
