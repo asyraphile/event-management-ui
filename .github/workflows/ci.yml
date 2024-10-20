@@ -32,7 +32,7 @@ jobs:
 
       # Build the Angular project
       - name: Build Angular app
-        run: ng build --prod  # Use --prod for production build
+        run: ng build
 
       # Deploy to Firebase Hosting
       - name: Deploy to Firebase Hosting
