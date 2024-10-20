@@ -39,6 +39,6 @@ jobs:
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}  # For GitHub actions
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}  # Use service account JSON
+          firebaseServiceAccount: ${{ secrets.FIREBASE_TOKEN }}  # Use service account JSON
           channelId: live
           projectId: event-management-ui
