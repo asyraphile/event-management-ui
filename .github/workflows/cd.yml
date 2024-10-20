@@ -21,7 +21,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: Production file
-          path: ./artifacts/build
+          path: ./dist
 
       # Install Firebase CLI
       - name: Install Firebase Tools
