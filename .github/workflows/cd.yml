@@ -1,10 +1,8 @@
 name: Deployment to Firebase Hosting
 
 on:
-  workflow_run:
-    workflows: ["Build Event Management UI"]
-    types:
-      - completed
+  push:
+    branches: [ "main" ]
 
 permissions:
   checks: write
@@ -17,18 +15,19 @@ jobs:
       - name: Retrieving build from main
         uses: .github/workflows/ci.yml@main
   deploy:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
           name: Production file
-          path: ./artifacts/build
+          path: ./dist
 
       # Install Firebase CLI
       - name: Install Firebase Tools
-        run: npm install -g firebase-tools
+        run: |
+          npm install -g firebase-tools
+          firebase init
 
       # Deploy to Firebase Hosting
       - name: Deploy to Firebase Hosting
