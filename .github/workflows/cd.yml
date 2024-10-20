@@ -10,11 +10,11 @@ permissions:
   pull-requests: write
 
 # Trigger deployment only after the CI workflow completes successfully on the main branch
-on:
-  workflow_run:
-    workflows: ["Build Event Management UI"]  # Name of your CI workflow
-    types:
-      - completed
+# on:
+#   workflow_run:
+#     workflows: ["Build Event Management UI"]  # Name of your CI workflow
+#     types:
+#       - completed
 
 jobs:
   deploy:
