@@ -36,7 +36,8 @@ jobs:
 
       # Build the Angular project
       - name: Build Angular app
-        run: ng build
+        run: ng build --configuration production
+      #  run: ng build
 
       # Deploy to Firebase Hosting
       - name: Deploy to Firebase Hosting
