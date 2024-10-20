@@ -1,8 +1,6 @@
 name: Deployment to Firebase Hosting
 
 on: 
-  push:
-    branches: [ "main" ]
   pull_request:
     branches: [ "*" ]
 
@@ -10,7 +8,7 @@ permissions:
   checks: write
   contents: read
   pull-requests: write
-  
+
 # Trigger deployment only after the CI workflow completes successfully on the main branch
 on:
   workflow_run:
