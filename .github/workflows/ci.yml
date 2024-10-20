@@ -8,6 +8,10 @@ on:
   pull_request:
     branches: [ "*" ]
 
+permissions:
+  checks: write
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -32,4 +36,4 @@ jobs:
 
       # Build the Angular project
       - name: Build Angular app
-        run: ng build
+        run: ng build --configuration production
