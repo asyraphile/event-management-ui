@@ -1,5 +1,3 @@
-# Continuous Integration [build]
-
 name: Build Event Management UI
 
 on:

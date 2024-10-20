@@ -2,7 +2,7 @@ name: Deployment to Firebase Hosting
 
 on:
   workflow_run:
-    workflows: ["Build Event Management UI"]  # Name of your CI workflow
+    workflows: ["Build Event Management UI"]
     types:
       - completed
 
@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   deploy:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}  # Only run if the CI workflow succeeded
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       # Checkout repository
