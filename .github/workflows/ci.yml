@@ -37,11 +37,3 @@ jobs:
       # Build the Angular project
       - name: Build Angular app
         run: ng build --configuration production
-      #  run: ng build
-
-      # Deploy to Firebase Hosting
-      - name: Deploy to Firebase Hosting
-        run: |
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > $HOME/serviceAccountKey.json
-          npm install -g firebase-tools
-          firebase deploy --project event-management-ui --token ${{ secrets.FIREBASE_TOKEN }}
