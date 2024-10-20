@@ -1,4 +1,4 @@
-#Continuous Integration[build]
+# Continuous Integration [build]
 
 name: Build Event Management UI
 
@@ -11,18 +11,23 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       # Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
       # Set up Node.js environment for Angular
-      - name: Set up Node.js 
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20.x.x"
 
-      # Install project dependencies
+      # Install Angular CLI
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli
+
+      # Clean Cache and Install project dependencies
       - name: Clean Cache and Install dependencies
         run: |
           npm cache clean --force
