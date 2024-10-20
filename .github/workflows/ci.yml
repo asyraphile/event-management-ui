@@ -23,14 +23,11 @@ jobs:
         with:
           node-version: "20.x.x"
 
-      # Install Angular CLI
-      - name: Install Angular CLI
-        run: npm install -g @angular/cli
-
       # Clean Cache and Install project dependencies
       - name: Clean Cache and Install dependencies
         run: |
           npm cache clean --force
+          npm install -g @angular/cli
           npm install
 
       # Build the Angular project

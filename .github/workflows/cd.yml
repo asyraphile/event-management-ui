@@ -25,6 +25,7 @@ jobs:
       - name: Clean Cache and Install dependencies
         run: |
           npm cache clean --force
+          npm install -g @angular/cli
           npm install
 
       # Build the Angular project
