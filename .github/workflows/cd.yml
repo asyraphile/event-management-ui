@@ -14,23 +14,24 @@ jobs:
     steps:
       - name: Retrieving build from main
         uses: .github/workflows/ci.yml@main
+
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: Production file
-          path: ./dist
+          name: Production file  # Make sure this matches the artifact name from the build job
+          path: ./dist  # Ensure this matches the actual location of your build output
 
       # Install Firebase CLI
       - name: Install Firebase Tools
-        run: |
-          npm install -g firebase-tools
-          firebase init
+        run: npm install -g firebase-tools
 
-      # Deploy to Firebase Hosting
+      # Authenticate using Firebase Token (preferred for simplicity)
       - name: Deploy to Firebase Hosting
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}  # Make sure the token is set in GitHub Secrets
         run: |
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > $HOME/serviceAccountKey.json
-          firebase deploy --project event-management-ui --token ${{ secrets.FIREBASE_TOKEN }}
+          firebase deploy --project event-management-ui --only hosting
