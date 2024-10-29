@@ -1,37 +1,35 @@
 name: Deployment to Firebase Hosting
 
 on:
-  workflow_run:
-    workflows: ["Build Event Management UI"]
-    types:
-      - completed
-
-permissions:
-  checks: write
-  contents: read
-  pull-requests: write
+  push:
+    branches: [main]
+  workflow_dispatch:
 
 jobs:
   build:
-    steps:
-      - name: Retrieving build from main
-        uses: .github/workflows/ci.yml@main
+    name: Build
+    uses: asyraphile/event-management-ui/.github/workflows/ci.yml@master
+    secrets:
+      FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
   deploy:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    name: Deploy to Firebase
+    needs: build
     runs-on: ubuntu-latest
+
     steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Download build artifact from CI
+        uses: actions/download-artifact@v3
         with:
           name: Production file
-          path: ./artifacts/build
+          path: ./dist  # Path to store the downloaded build
 
-      # Install Firebase CLI
-      - name: Install Firebase Tools
+      - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
-      # Deploy to Firebase Hosting
       - name: Deploy to Firebase Hosting
-        run: |
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > $HOME/serviceAccountKey.json
-          firebase deploy --project event-management-ui --token ${{ secrets.FIREBASE_TOKEN }}
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        run: firebase deploy --project event-management-ui --only hosting
