@@ -1,12 +1,16 @@
 name: Deployment to Firebase Hosting
 
 on:
-  workflow_run:
-    workflows: ["Build Event Management UI"]  # The name of the CI workflow
-    types:
-      - completed  # Trigger only after the CI workflow is completed
+  push:
+    branches: [main]
+  workflow_dispatch:
 
 jobs:
+  build:
+    name: Build
+    uses: asyraphile/event-management-ui/.github/workflows/ci.yml@master
+    secrets:
+      FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
   deploy:
     runs-on: ubuntu-latest
 
