@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     name: Build
-    uses: asyraphile/event-management-ui/.github/workflows/ci.yml@master
+    uses: asyraphile/event-management-ui/.github/workflows/ci.yml@main
     secrets:
       FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
   deploy:
