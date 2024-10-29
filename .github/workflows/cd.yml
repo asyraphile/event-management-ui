@@ -5,6 +5,10 @@ on:
     branches: [main]
   workflow_dispatch:
 
+permissions:
+  checks: write
+  contents: read
+
 jobs:
   build:
     name: Build
