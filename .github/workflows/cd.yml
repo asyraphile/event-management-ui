@@ -12,6 +12,8 @@ jobs:
     secrets:
       FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
   deploy:
+    name: Deploy to Firebase
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
