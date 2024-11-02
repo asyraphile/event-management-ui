@@ -15,43 +15,43 @@ jobs:
     uses: asyraphile/event-management-ui/.github/workflows/ci.yml@main
     secrets:
       FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-  deploy:
-    name: Deploy to Firebase
-    needs: build
-    runs-on: ubuntu-latest
+  # deploy:
+  #   name: Deploy to Firebase
+  #   needs: build
+  #   runs-on: ubuntu-latest
 
-    steps:
-      # Checkout repository
-      - name: Checkout repository
-        uses: actions/checkout@v4
+  #   steps:
+  #     # Checkout repository
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v4
 
-      # Set up Node.js environment for Angular
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20.x.x"
+  #     # Set up Node.js environment for Angular
+  #     - name: Set up Node.js
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: "20.x.x"
 
-      # Clean Cache and Install project dependencies
-      - name: Clean Cache and Install dependencies
-        run: |
-          npm cache clean --force
-          npm install -g @angular/cli
-          npm install
+  #     # Clean Cache and Install project dependencies
+  #     - name: Clean Cache and Install dependencies
+  #       run: |
+  #         npm cache clean --force
+  #         npm install -g @angular/cli
+  #         npm install
 
-      # Build the Angular project
-      - name: Build Angular app
-        run: ng build --configuration production
+  #     # Build the Angular project
+  #     - name: Build Angular app
+  #       run: ng build --configuration production
 
-      - name: Upload artifact to enable deployment
-        uses: actions/upload-artifact@v4
-        with:
-          name: Production file
-          path: ./dist
+  #     - name: Upload artifact to enable deployment
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: Production file
+  #         path: ./dist
 
-      - name: Install Firebase CLI
-        run: npm install -g firebase-tools
+  #     - name: Install Firebase CLI
+  #       run: npm install -g firebase-tools
 
-      - name: Deploy to Firebase Hosting
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        run: firebase deploy --project event-management-ui --only hosting
+  #     - name: Deploy to Firebase Hosting
+  #       env:
+  #         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+  #       run: firebase deploy --project event-management-ui --only hosting
