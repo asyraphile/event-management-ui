@@ -21,15 +21,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: List artifacts
-        run: | 
-          echo "Listing artifacts..."
-          ls
-      - name: Download build artifact from CI
-        uses: actions/download-artifact@v4
+      # Set up Node.js environment for Angular
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          name: Production file
-          path: ./dist  # Path to store the downloaded build
+          node-version: "20.x.x"
+
+      # Clean Cache and Install project dependencies
+      - name: Clean Cache and Install dependencies
+        run: |
+          npm cache clean --force
+          npm install -g @angular/cli
+          npm install
+
+      # Build the Angular project
+      - name: Build Angular app
+        run: ng build --configuration production
 
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
